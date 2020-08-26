@@ -7,7 +7,7 @@
     <h1>Media</h1>
     {{--added bulk media delete feature. for it to work we create a form around our table--}}
     @if($photos)
-        <form action="/delete/media" method="POST" class="form-inline">
+        <form action="delete/media" method="POST" class="form-inline">
 
                 {{--         {{csrf_field()}}--}}
                 {{--         {{method_field('delete')}}--}}
@@ -16,11 +16,11 @@
 
             <div class="form-group">
                 <select name="checkBoxArray" id="" class="form-control">
-                    <option value="delete">Delete</option>
+                    <option value="">Delete</option>
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn-primary form-control">
+                <input type="submit" class="btn-primary form-control" name="delete_all">
                 {{--             {!! method_field('delete') !!}--}}
                 {{--             {!! csrf_field() !!}--}}
 
@@ -47,16 +47,19 @@
                         <td>{{$photo->created_at ? $photo->created_at->diffForHumans() : 'No Date'}}</td>
                         <td>
 
-                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminMediasController@destroy',$photo->id]]) !!} <!--files true enables you to add file, upload. equivalent of enctype=multiform/data-->
+{{--                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminMediasController@destroy',$photo->id]]) !!} <!--files true enables you to add file, upload. equivalent of enctype=multiform/data-->--}}
+
 
 
                             <div class="form-group">
+{{--                                {!! Form::submit('Trash', ['class'=>'btn btn-danger']) !!}--}}
 
-                                {!! Form::submit('Trash', ['class'=>'btn btn-danger']) !!}
+                                <input type="hidden" name="photo" value="{{$photo->id}}">
+                                <input type="submit" name="delete_single"  value="Delete" class="btn btn-danger">
                             </div>
 
 
-                            {!! Form::close() !!}
+{{--                            {!! Form::close() !!}--}}
 
 
                         </td>

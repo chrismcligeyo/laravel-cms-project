@@ -100,23 +100,40 @@ class AdminMediasController extends Controller
         $photos->delete();
 
 //        return redirect("/admin/media"); //this is same as below.
-        return redirect(route('admin.media.index'));
+//        return redirect(route('admin.media.index'));
     }
 
     public function deleteMedia(Request $request) {
 
 //        $input = $request->input('checkBoxArray'); // can be $request->checkBoxArray
 
-        $photos = Photo::whereKey($request->checkBoxArray)->get(); //if ou use find or fail it will return an error,because find return a boolean, is it there = true or false. Fatal error: Call to a member function delete() on bool
+        if(isset($request->delete_single)){
 
+            $this->destroy($request->photo);
+            return redirect(route('admin.media.index'));
+           // return redirect()->back();
 
-        foreach($photos as $photo) {
-
-            $photo->delete();
         }
 
-        return redirect()->back();
+        if(isset($request->delete_all) && !empty($request->checkBoxArray)){
+
+            $photos = Photo::whereKey($request->checkBoxArray)->get(); //if ou use find or fail it will return an error,because find return a boolean, is it there = true or false. Fatal error: Call to a member function delete() on bool
+
+
+            foreach($photos as $photo) {
+
+                $photo->delete();
+            }
+
+            return redirect()->back();
 //        dd($request);
+
+
+        } else {
+            return redirect()->back();
+        }
+
+
 
     }
 }

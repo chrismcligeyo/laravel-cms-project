@@ -49,4 +49,4 @@ Route::post('comment/reply', 'CommentRepliesController@createReply');
 
 //rote for bulk media delete
 
-Route::delete('/delete/media' ,'AdminMediasController@deleteMedia');
+Route::delete('admin/delete/media' ,'AdminMediasController@deleteMedia');
