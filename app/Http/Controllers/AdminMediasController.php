@@ -99,7 +99,8 @@ class AdminMediasController extends Controller
 
         $photos->delete();
 
-        return redirect('admin/media');
+//        return redirect("/admin/media"); //this is same as below.
+        return redirect(route('admin.media.index'));
     }
 
     public function deleteMedia(Request $request) {
